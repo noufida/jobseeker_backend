@@ -84,16 +84,20 @@ WSGI_APPLICATION = 'job_portal.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+
 DATABASES = {
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'jobportal',
-       'USER': 'postgres',
-       'PASSWORD': '123',
-       'HOST': '127.0.0.1',
-       'PORT': '5432',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME', cast=str),
+        'USER': config('DB_USER', cast=str),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT', cast=int),
     }
 }
+
 
 
 # Password validation
