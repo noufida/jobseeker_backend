@@ -34,7 +34,7 @@ urlpatterns = [
     path('fav_job/<str:id>/', views.fav,name='fav'),
     path('match_job/', views.match_job,name='match_job'),
     path('job_appleid_or_not/<str:id>/', views.job_appleid_or_not,name='job_appleid_or_not'),
-
+    path('job_fav_or_not/<str:id>/', views.job_fav_or_not,name='job_fav_or_not'),
   
     path('change_password/', views.change_password,name='change_password'),
     path('staff/', views.staffs,name='staffs'),

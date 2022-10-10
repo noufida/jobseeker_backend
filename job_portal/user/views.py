@@ -32,9 +32,26 @@ def register(request):
     data = request.data
 
     if data['password'] != data['confirm_password']:
-        message={'detail':'passwords does not match'}
+        message={'error':'passwords does not match'}
         return Response(message,status=status.HTTP_400_BAD_REQUEST)
-  
+
+    mobile=data['mobile']
+    email=data['email']
+
+    anonymous=Account.objects.filter(email=email).exists()
+    if anonymous:
+        message={
+        'error':'Email already exists'
+        }
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
+
+    anonymous=Account.objects.filter(mobile=mobile).exists()
+    if anonymous:
+        message={
+        'error':'Mobile number already exists'
+        }
+        return Response(message,status=status.HTTP_400_BAD_REQUEST)
+
     mobile = data['mobile']
     request.session['mobile']=mobile
     print(mobile,'jjjj')
@@ -495,6 +512,21 @@ def match_job(request):
 def job_appleid_or_not(request,id):  
     try:
         check = JobApplication.objects.filter(user=request.user,job_id=id).exists()
+        data = {
+            'appleid' : check
+        }
+        return Response(data)
+    except:
+        message = {'detail': 'Some problem occured in checking'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
+
+
+#getting whether a  particular job is appleid by a particular candidate
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+def job_fav_or_not(request,id):  
+    try:
+        check = Favourite.objects.filter(user=request.user,job_id=id).exists()
         data = {
             'appleid' : check
         }

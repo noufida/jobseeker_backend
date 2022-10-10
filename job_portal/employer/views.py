@@ -290,19 +290,23 @@ def job_des(request,id):
         message = {'detail': 'Some problem occured'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
+import urllib.request
 
 #getting jd of a job
 @api_view(['GET'])
 def jd(request,id):
     try:
+        a=[]
         job = Job.objects.get(id=id)
         print(job.jd,"llllllllllllll")
         print(job,job.jd,"for jd")
-        with open(f'media/{job.jd}') as file:
-            lines = file.readlines()
-            
-
-        return Response(lines)
+        data = urllib.request.urlopen(f'https://jobportaldjango.s3.amazonaws.com/static/{job.jd}')  
+        # with open(f'media/{job.jd}') as file:
+        #     lines = file.readlines()
+        for line in data:
+            a.append(line)
+        print('get ur jd')
+        return Response(a)
     except:
         message = {'detail': 'Some problem occured'}
         return Response(message, status=status.HTTP_400_BAD_REQUEST)
