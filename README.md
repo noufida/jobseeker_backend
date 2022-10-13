@@ -1,4 +1,4 @@
-# REST API- job portal
+# Job portal - REST Api
  This is sample rest api for web app which helps in streamlining the flow of job application process.  There are two end users (applicant,recruiter). Login session are persistent and REST APIs are securely protected by JWT token verification.
  After logging in, a recruiter can create/read/delete/update jobs, shortlist/accept/reject applications, view resume and edit profile. And, an applicant can view jobs, perform search and apply various filters, apply for jobs,save jobs, view status of job applications, add qualificaitons, experiences, skills, upload resume and edit profile.
  Admin can analyse the sales and analyse the jobs, restrict users, check and approve/reject applied companies, create/read/upadate/delete subsciption plans,job locations, categories.
